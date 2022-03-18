@@ -1,10 +1,23 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { RouterModule } from '@nestjs/core';
+
+import { DashboardModule } from './dashboard/dashboard.module';
+import { MobileModule } from './mobile/mobile.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    DashboardModule,
+    MobileModule,
+    RouterModule.register([
+      {
+        path: 'dashboard',
+        module: DashboardModule,
+      },
+      {
+        path: 'mobile',
+        module: MobileModule,
+      },
+    ]),
+  ],
 })
 export class AppModule {}
