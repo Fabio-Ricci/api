@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { DashboardAuthController } from './dashboard-auth.controller';
+import { DashboardAuthController } from './auth.controller';
 
 describe('DashboardAuthController', () => {
   let controller: DashboardAuthController;

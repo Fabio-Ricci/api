@@ -28,7 +28,7 @@ export class Admin {
   email: string;
 
   @Column({ name: 'hash_password' })
-  hash_password: string;
+  hashPassword: string;
 
   @AfterInsert()
   logInsert() {

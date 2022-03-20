@@ -1,12 +1,8 @@
 import { Module } from '@nestjs/common';
 
-import { AdminModule } from 'src/modules/admin/admin.module';
-
-import { DashboardAdminController } from 'src/modules/dashboard/dashboard-admin/dashboard-admin.controller';
-import { DashboardAuthController } from 'src/modules/dashboard/dashboard-auth/dashboard-auth.controller';
+import { DashboardAuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [AdminModule],
-  controllers: [DashboardAuthController, DashboardAdminController],
+  imports: [DashboardAuthModule],
 })
 export class DashboardModule {}
