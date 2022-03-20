@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 
-import { DashboardAuthModule } from './auth/auth.module';
+import { DashboardAdminModule } from './admin/admin.module';
 
 @Module({
-  imports: [DashboardAuthModule],
+  imports: [DashboardAdminModule],
 })
 export class DashboardModule {}

@@ -3,7 +3,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 
 import { AdminModule } from 'src/modules/admin/admin.module';
-
+import { DashboardAdminController } from './admin.controller';
+import { DashboardAdminService } from './admin.service';
 import { DashboardAuthController } from './auth.controller';
 import { DashboardAuthService } from './auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
@@ -19,7 +20,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
       }),
     }),
   ],
-  controllers: [DashboardAuthController],
-  providers: [DashboardAuthService, JwtStrategy],
+  controllers: [DashboardAuthController, DashboardAdminController],
+  providers: [DashboardAuthService, DashboardAdminService, JwtStrategy],
 })
-export class DashboardAuthModule {}
+export class DashboardAdminModule {}
