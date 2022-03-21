@@ -10,27 +10,16 @@ import {
   LoginAdminResponseDto,
 } from './dtos/login-admin.dto';
 import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
-import { CreateAdminRequestDto } from './dtos/create-admin.dto';
-import { AdminService } from '../admin/admin.service';
 
 @Controller('dashboard/auth')
 export class DashboardAuthController {
-  constructor(
-    private authService: AuthService,
-    private adminService: AdminService,
-  ) {}
+  constructor(private authService: AuthService) {}
 
   @Post('login')
   async loginAdmin(
     @Body() body: LoginAdminRequestDto,
   ): Promise<LoginAdminResponseDto> {
     return await this.authService.loginAdmin(body.email, body.password);
-  }
-
-  @Serialize(AdminDto)
-  @Post()
-  async createAdmin(@Body() body: CreateAdminRequestDto) {
-    return await this.adminService.create(body.email, body.password);
   }
 
   @Serialize(AdminDto)

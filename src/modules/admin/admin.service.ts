@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomBytes, scryptSync } from 'crypto';
 import { Repository } from 'typeorm';
@@ -13,7 +9,7 @@ import { Admin } from './admin.entity';
 export class AdminService {
   constructor(@InjectRepository(Admin) private repo: Repository<Admin>) {}
 
-  async create(email: string, password: string): Promise<Admin> {
+  async create(email: string, password: string) {
     // See if email is in use
     const existingAdmin = await this.findOneByEmail(email);
     if (existingAdmin) {
@@ -37,40 +33,40 @@ export class AdminService {
     });
 
     // return the admin
-    return this.repo.save(admin);
+    return await this.repo.save(admin);
   }
 
-  async findOne(id: number): Promise<Admin> {
-    return this.repo.findOne(id);
+  async findOne(id: number) {
+    return await this.repo.findOne(id);
   }
 
-  async findOneByEmail(email: string): Promise<Admin> {
-    return this.repo.findOne({
+  async findOneByEmail(email: string) {
+    return await this.repo.findOne({
       where: {
         email: email,
       },
     });
   }
 
-  async find(): Promise<Admin[]> {
-    return this.repo.find();
+  async find(email: string): Promise<Admin[]> {
+    return await this.repo.find({ email: email });
   }
 
-  async update(id: number, attrs: Partial<Admin>): Promise<Admin> {
+  async update(id: number, attrs: Partial<Admin>) {
     const admin = await this.findOne(id);
     if (!admin) {
-      throw new NotFoundException('admin not found');
+      throw new BadRequestException();
     }
     Object.assign(admin, attrs);
-    return this.repo.save(admin);
+    return await this.repo.save(admin);
   }
 
-  async remove(id: number): Promise<Admin> {
+  async delete(id: number) {
     const admin = await this.findOne(id);
     if (!admin) {
-      throw new NotFoundException('admin not found');
+      throw new BadRequestException();
     }
-    return this.repo.remove(admin);
+    return await this.repo.softDelete({ id: admin.id });
   }
 
   async login(email: string, password: string) {
