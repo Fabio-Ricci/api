@@ -31,6 +31,7 @@ export class Admin {
 
   @ManyToOne(() => Clinic, (clinic) => clinic, {
     nullable: true,
+    eager: true,
   })
   @JoinColumn({ name: 'clinic_id' })
   clinic: Clinic | null;

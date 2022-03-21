@@ -1,9 +1,15 @@
-import { Expose } from 'class-transformer';
+import { Expose, Transform } from 'class-transformer';
+
+import { Admin } from '../admin.entity';
 
 export class AdminDto {
   @Expose()
   id: number;
 
   @Expose()
-  name: string;
+  email: string;
+
+  @Transform(({ obj }: { obj: Admin }) => (obj.clinic ? obj.clinic.id : null))
+  @Expose()
+  clinicId: number | null;
 }
