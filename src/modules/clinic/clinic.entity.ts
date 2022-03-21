@@ -5,12 +5,15 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
   UpdateDateColumn,
+  CreateDateColumn,
+  OneToMany,
 } from 'typeorm';
 
+import { Admin } from '../admin/admin.entity';
+
 @Entity()
-export class User {
+export class Clinic {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -21,23 +24,23 @@ export class User {
   updatedAt: Date;
 
   @Column()
-  email: string;
+  name: string;
 
-  @Column({ name: 'hash_password' })
-  hashPassword: string;
+  @OneToMany(() => Admin, (admin) => admin.clinic)
+  admins: Admin[];
 
   @AfterInsert()
   logInsert() {
-    console.log('Inserted User with id', this.id);
+    console.log('Inserted Clinic with id', this.id);
   }
 
   @AfterUpdate()
   logUpdate() {
-    console.log('Updated User with id', this.id);
+    console.log('Updated Clinic with id', this.id);
   }
 
   @AfterRemove()
   logRemove() {
-    console.log('Removed User with id', this.id);
+    console.log('Removed Clinic with id', this.id);
   }
 }

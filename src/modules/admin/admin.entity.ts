@@ -7,8 +7,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   CreateDateColumn,
-  DeleteDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
+import { Clinic } from '../clinic/clinic.entity';
 
 @Entity()
 export class Admin {
@@ -21,14 +23,17 @@ export class Admin {
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deleted_at' })
-  deletedAt: Date;
-
   @Column()
   email: string;
 
   @Column({ name: 'hash_password' })
   hashPassword: string;
+
+  @ManyToOne(() => Clinic, (clinic) => clinic, {
+    nullable: true,
+  })
+  @JoinColumn({ name: 'clinic_id' })
+  clinic: Clinic | null;
 
   @AfterInsert()
   logInsert() {

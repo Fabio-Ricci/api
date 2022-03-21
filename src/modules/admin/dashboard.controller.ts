@@ -10,7 +10,8 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
+import { Public } from 'src/decorators/public.decorator';
+import { DashboardJwtAuthGuard } from 'src/guards/dashboard-jwt-auth.guard';
 
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 
@@ -20,38 +21,36 @@ import { CreateAdminRequestDto } from './dtos/create-admin.dto';
 import { UpdateAdminRequestDto } from './dtos/update-admin.dto';
 
 @Serialize(AdminDto)
+@UseGuards(DashboardJwtAuthGuard)
 @Controller('dashboard/admin')
 export class DashboardAdminController {
   constructor(private adminService: AdminService) {}
 
+  @Public()
   @Post()
   async createAdmin(@Body() body: CreateAdminRequestDto) {
     return await this.adminService.create(body.email, body.password);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('/:id')
   async findAdmin(@Param('id') id: string) {
     const admin = await this.adminService.findOne(parseInt(id));
     if (!admin) {
-      throw new NotFoundException('admin not found');
+      throw new NotFoundException();
     }
     return admin;
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   async findAllAdmins(@Query('email') email: string) {
     return await this.adminService.find(email);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Delete('/:id')
   async deleteAdmin(@Param('id') id: string) {
     return await this.adminService.delete(parseInt(id));
   }
 
-  @UseGuards(JwtAuthGuard)
   @Patch('/:id')
   async updateAdmin(
     @Param('id') id: string,

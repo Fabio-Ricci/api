@@ -8,6 +8,7 @@ import { AppService } from './app.service';
 import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
+import { ClinicModule } from './modules/clinic/clinic.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { UserModule } from './modules/user/user.module';
     AdminModule,
     AuthModule,
     UserModule,
+    ClinicModule,
   ],
   controllers: [AppController],
   providers: [

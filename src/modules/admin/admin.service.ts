@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomBytes, scryptSync } from 'crypto';
 import { Repository } from 'typeorm';
@@ -13,7 +17,7 @@ export class AdminService {
     // See if email is in use
     const existingAdmin = await this.findOneByEmail(email);
     if (existingAdmin) {
-      throw new BadRequestException();
+      throw new NotFoundException();
     }
 
     // Hash the admins password
@@ -53,9 +57,15 @@ export class AdminService {
   }
 
   async update(id: number, attrs: Partial<Admin>) {
-    const admin = await this.findOne(id);
+    let admin = await this.findOne(id);
     if (!admin) {
-      throw new BadRequestException();
+      throw new NotFoundException();
+    }
+    if (attrs.email) {
+      admin = await this.findOneByEmail(attrs.email);
+      if (admin) {
+        throw new NotFoundException();
+      }
     }
     Object.assign(admin, attrs);
     return await this.repo.save(admin);
@@ -64,15 +74,15 @@ export class AdminService {
   async delete(id: number) {
     const admin = await this.findOne(id);
     if (!admin) {
-      throw new BadRequestException();
+      throw new NotFoundException();
     }
-    return await this.repo.softDelete({ id: admin.id });
+    return await this.repo.remove(admin);
   }
 
   async login(email: string, password: string) {
     const admin = await this.findOneByEmail(email);
     if (!admin) {
-      throw new BadRequestException();
+      throw new NotFoundException();
     }
 
     const [salt, storedHash] = admin.hashPassword.split('.');

@@ -9,12 +9,15 @@ import {
   LoginAdminRequestDto,
   LoginAdminResponseDto,
 } from './dtos/login-admin.dto';
-import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
+import { DashboardJwtAuthGuard } from '../../guards/dashboard-jwt-auth.guard';
+import { Public } from 'src/decorators/public.decorator';
 
+@UseGuards(DashboardJwtAuthGuard)
 @Controller('dashboard/auth')
 export class DashboardAuthController {
   constructor(private authService: AuthService) {}
 
+  @Public()
   @Post('login')
   async loginAdmin(
     @Body() body: LoginAdminRequestDto,
@@ -23,7 +26,6 @@ export class DashboardAuthController {
   }
 
   @Serialize(AdminDto)
-  @UseGuards(JwtAuthGuard)
   @Get('me')
   async getCurrentAdmin(@CurrentAdmin() admin: Admin) {
     return admin;
