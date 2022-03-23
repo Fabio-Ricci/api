@@ -4,12 +4,12 @@ import { Injectable } from '@nestjs/common';
 
 import { AdminService } from 'src/modules/admin/admin.service';
 
-export interface JwtPayload {
+export interface DashboardJwtPayload {
   sub: number;
 }
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(
+export class DashboardJwtStrategy extends PassportStrategy(
   Strategy,
   'dashboard-jwt-auth',
 ) {
@@ -21,7 +21,7 @@ export class JwtStrategy extends PassportStrategy(
     });
   }
 
-  async validate(payload: JwtPayload) {
+  async validate(payload: DashboardJwtPayload) {
     const admin = await this.adminService.findOne(payload.sub);
     return admin;
   }

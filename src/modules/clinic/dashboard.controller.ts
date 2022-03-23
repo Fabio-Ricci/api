@@ -11,8 +11,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { DashboardJwtAuthGuard } from 'src/guards/dashboard-jwt-auth.guard';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
+import { DashboardJwtAuthGuard } from '../auth/guards/dashboard-jwt-auth.guard';
 import { ClinicService } from './clinic.service';
 import { ClinicDto } from './dtos/clinic.dto';
 import { CreateClinicRequestDto } from './dtos/create-clinic.dto';

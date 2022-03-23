@@ -1,15 +1,16 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 
 import { AdminModule } from 'src/modules/admin/admin.module';
-import { JwtStrategy } from 'src/strategies/dashboard-jwt-auth.strategy';
+import { DashboardJwtStrategy } from './guards/dashboard-jwt-auth.strategy';
 import { DashboardAuthController } from './dashboard.controller';
 import { AuthService } from './auth.service';
+import { DashboardJwtAuthGuard } from './guards/dashboard-jwt-auth.guard';
 
 @Module({
   imports: [
-    AdminModule,
+    forwardRef(() => AdminModule), // avoid circular dependency
     PassportModule,
     JwtModule.registerAsync({
       useFactory: async () => ({
@@ -19,7 +20,7 @@ import { AuthService } from './auth.service';
     }),
   ],
   controllers: [DashboardAuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, DashboardJwtAuthGuard, DashboardJwtStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}
