@@ -17,6 +17,7 @@ import { ClinicService } from './clinic.service';
 import { ClinicDto } from './dtos/clinic.dto';
 import { CreateClinicRequestDto } from './dtos/create-clinic.dto';
 import { UpdateClinicRequestDto } from './dtos/update-clinic.dto';
+import { DashboardClinicGuard } from './guards/dashboard-clinic.guard';
 
 @UseGuards(DashboardJwtAuthGuard)
 @Serialize(ClinicDto)
@@ -29,6 +30,7 @@ export class DashboardClinicController {
     return await this.clinicService.create(body.name);
   }
 
+  @UseGuards(DashboardClinicGuard)
   @Get('/:id')
   async findClinic(@Param('id') id: string) {
     const clinic = await this.clinicService.findOne(parseInt(id));
@@ -43,11 +45,13 @@ export class DashboardClinicController {
     return await this.clinicService.find(name);
   }
 
+  @UseGuards(DashboardClinicGuard)
   @Delete('/:id')
   async deleteClinic(@Param('id') id: string) {
     return await this.clinicService.delete(parseInt(id));
   }
 
+  @UseGuards(DashboardClinicGuard)
   @Patch('/:id')
   async updateClinic(
     @Param('id') id: string,

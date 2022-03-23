@@ -11,7 +11,9 @@ import { DashboardJwtAuthGuard } from './guards/dashboard-jwt-auth.guard';
 @Module({
   imports: [
     forwardRef(() => AdminModule), // avoid circular dependency
-    PassportModule,
+    PassportModule.register({
+      property: 'currentAdmin',
+    }),
     JwtModule.registerAsync({
       useFactory: async () => ({
         secret: process.env.DASHBOARD_JWT_SECRET,
