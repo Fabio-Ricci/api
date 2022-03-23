@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { AuthModule } from '../auth/auth.module';
+import { DashboardAuthModule } from '../dashboard-auth/dashboard-auth.module';
 
 import { Admin } from './admin.entity';
 import { AdminService } from './admin.service';
 import { DashboardAdminController } from './dashboard.controller';
 
 @Module({
-  imports: [AuthModule, TypeOrmModule.forFeature([Admin])],
+  imports: [DashboardAuthModule, TypeOrmModule.forFeature([Admin])],
   controllers: [DashboardAdminController],
   providers: [AdminService],
   exports: [AdminService],

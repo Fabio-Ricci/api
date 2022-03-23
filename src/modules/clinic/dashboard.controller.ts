@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 
 import { Serialize } from 'src/interceptors/serialize.interceptor';
-import { DashboardJwtAuthGuard } from '../auth/guards/dashboard-jwt-auth.guard';
+import { DashboardJwtAuthGuard } from '../dashboard-auth/guards/dashboard-jwt-auth.guard';
 import { ClinicService } from './clinic.service';
 import { ClinicDto } from './dtos/clinic.dto';
 import { CreateClinicRequestDto } from './dtos/create-clinic.dto';

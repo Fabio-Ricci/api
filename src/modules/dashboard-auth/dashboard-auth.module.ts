@@ -4,8 +4,8 @@ import { PassportModule } from '@nestjs/passport';
 
 import { AdminModule } from 'src/modules/admin/admin.module';
 import { DashboardJwtStrategy } from './guards/dashboard-jwt-auth.strategy';
-import { DashboardAuthController } from './dashboard.controller';
-import { AuthService } from './auth.service';
+import { DashboardAuthController } from './dashboard-auth.controller';
+import { DashboardAuthService } from './dashboard-auth.service';
 import { DashboardJwtAuthGuard } from './guards/dashboard-jwt-auth.guard';
 
 @Module({
@@ -22,7 +22,11 @@ import { DashboardJwtAuthGuard } from './guards/dashboard-jwt-auth.guard';
     }),
   ],
   controllers: [DashboardAuthController],
-  providers: [AuthService, DashboardJwtAuthGuard, DashboardJwtStrategy],
-  exports: [AuthService],
+  providers: [
+    DashboardAuthService,
+    DashboardJwtAuthGuard,
+    DashboardJwtStrategy,
+  ],
+  exports: [DashboardAuthService],
 })
-export class AuthModule {}
+export class DashboardAuthModule {}

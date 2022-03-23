@@ -10,11 +10,11 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { Public } from 'src/modules/auth/decorators/public.decorator';
+import { Public } from 'src/decorators/public.decorator';
 
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 
-import { DashboardJwtAuthGuard } from '../auth/guards/dashboard-jwt-auth.guard';
+import { DashboardJwtAuthGuard } from '../dashboard-auth/guards/dashboard-jwt-auth.guard';
 
 import { AdminService } from './admin.service';
 import { AdminDto } from './dtos/admin.dto';
