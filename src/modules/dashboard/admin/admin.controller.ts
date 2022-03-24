@@ -14,9 +14,9 @@ import { Public } from 'src/decorators/public.decorator';
 
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 
-import { DashboardJwtAuthGuard } from '../dashboard-auth/guards/dashboard-jwt-auth.guard';
+import { DashboardJwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
-import { AdminService } from './admin.service';
+import { AdminService } from '../../admin/admin.service';
 import { AdminDto } from './dtos/admin.dto';
 import { CreateAdminRequestDto } from './dtos/create-admin.dto';
 import { UpdateAdminRequestDto } from './dtos/update-admin.dto';

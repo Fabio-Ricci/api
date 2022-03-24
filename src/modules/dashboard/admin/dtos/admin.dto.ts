@@ -1,6 +1,6 @@
 import { Expose, Transform } from 'class-transformer';
 
-import { Admin } from '../admin.entity';
+import { Admin } from '../../../admin/admin.entity';
 
 export class AdminDto {
   @Expose()

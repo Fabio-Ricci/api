@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { AdminService } from 'src/modules/admin/admin.service';
-import { DashboardJwtPayload } from './guards/dashboard-jwt-auth.strategy';
+import { DashboardJwtPayload } from './guards/jwt-auth.strategy';
 
 @Injectable()
 export class DashboardAuthService {

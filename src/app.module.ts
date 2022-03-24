@@ -1,14 +1,11 @@
 import { Module, ValidationPipe } from '@nestjs/common';
 import { APP_PIPE } from '@nestjs/core';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AdminModule } from './modules/admin/admin.module';
-import { DashboardAuthModule } from './modules/dashboard-auth/dashboard-auth.module';
-import { UserModule } from './modules/user/user.module';
-import { ClinicModule } from './modules/clinic/clinic.module';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
@@ -17,10 +14,7 @@ import { ClinicModule } from './modules/clinic/clinic.module';
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
     TypeOrmModule.forRoot(),
-    DashboardAuthModule,
-    AdminModule,
-    UserModule,
-    ClinicModule,
+    DashboardModule,
   ],
   controllers: [AppController],
   providers: [

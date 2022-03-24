@@ -13,6 +13,8 @@ export class DashboardClinicGuard implements CanActivate {
 
     // FIXME add condition to check for super admin
 
-    return currentAdmin.clinic.id === parseInt(params.id);
+    return currentAdmin.clinic
+      ? currentAdmin.clinic.id === parseInt(params.id)
+      : false;
   }
 }

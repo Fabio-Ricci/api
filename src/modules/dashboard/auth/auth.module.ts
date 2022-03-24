@@ -1,16 +1,16 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 
 import { AdminModule } from 'src/modules/admin/admin.module';
-import { DashboardJwtStrategy } from './guards/dashboard-jwt-auth.strategy';
-import { DashboardAuthController } from './dashboard-auth.controller';
-import { DashboardAuthService } from './dashboard-auth.service';
-import { DashboardJwtAuthGuard } from './guards/dashboard-jwt-auth.guard';
+import { DashboardJwtStrategy } from './guards/jwt-auth.strategy';
+import { DashboardAuthController } from './auth.controller';
+import { DashboardAuthService } from './auth.service';
+import { DashboardJwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Module({
   imports: [
-    forwardRef(() => AdminModule), // avoid circular dependency
+    AdminModule,
     PassportModule.register({
       property: 'currentAdmin',
     }),
