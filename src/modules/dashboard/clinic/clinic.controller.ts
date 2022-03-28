@@ -44,7 +44,7 @@ export class DashboardClinicController {
 
   @Get()
   @Permissions(Permission.GET_CLINICS)
-  async findAllClinics(@Query('name') name?: string) {
+  async findClinics(@Query('name') name?: string) {
     return await this.clinicService.find(name);
   }
 

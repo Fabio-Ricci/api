@@ -42,7 +42,7 @@ export class DashboardAdminController {
 
   @Permissions(Permission.GET_ADMINS)
   @Get()
-  async findAllAdmins(@Query('email') email: string) {
+  async findAdmins(@Query('email') email: string) {
     return await this.adminService.find(email);
   }
 

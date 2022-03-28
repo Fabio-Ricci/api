@@ -7,6 +7,7 @@ import { DashboardAuthModule } from './auth/auth.module';
 import { PermissionsGuard } from './auth/guards/permissions.guard';
 import { DashboardJwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { PassportModule } from '@nestjs/passport';
+import { DashboardUserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { PassportModule } from '@nestjs/passport';
     DashboardAuthModule,
     DashboardAdminModule,
     DashboardClinicModule,
+    DashboardUserModule,
   ],
   providers: [
     {

@@ -41,7 +41,7 @@ export class Admin {
     type: 'enum',
     enum: Permission,
     array: true,
-    default: [Permission.ALL], // FIXME: column being dropped and old values are lost on synchronize: true
+    default: [Permission.ALL], // FIXME: column being dropped and old values are lost on synchornize: true
   })
   permissions: Permission[];
 

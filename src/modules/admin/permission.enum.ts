@@ -12,4 +12,10 @@ export enum Permission {
   DELETE_CLINIC = 'delete_clinic',
   GET_CLINIC = 'get_clinic',
   GET_CLINICS = 'get_clinics',
+  // USERS
+  CREATE_USER = 'create_user',
+  UPDATE_USER = 'update_user',
+  DELETE_USER = 'delete_user',
+  GET_USER = 'get_user',
+  GET_USERS = 'get_users',
 }
