@@ -37,8 +37,13 @@ export class Admin {
   @JoinColumn({ name: 'clinic_id' })
   clinic: Clinic | null;
 
-  @Column('simple-array')
-  permissions: Permission[]; // FIXME
+  @Column({
+    type: 'enum',
+    enum: Permission,
+    array: true,
+    default: [Permission.ALL], // FIXME: column being dropped and old values are lost on synchronize: true
+  })
+  permissions: Permission[];
 
   @AfterInsert()
   logInsert() {

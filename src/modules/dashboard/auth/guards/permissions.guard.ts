@@ -9,7 +9,7 @@ import { PERMISSIONS_KEY } from '../decorators/permissions.decorator';
 export class PermissionsGuard implements CanActivate {
   constructor(private reflector: Reflector) {}
 
-  canActivate(context: ExecutionContext): boolean {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const requiredPermissions = this.reflector.getAllAndOverride<Permission[]>(
       PERMISSIONS_KEY,
       [context.getHandler(), context.getClass()],
@@ -19,11 +19,12 @@ export class PermissionsGuard implements CanActivate {
     }
 
     const { currentAdmin } = context.switchToHttp().getRequest<Request>();
-    if (currentAdmin.permissions?.includes(Permission.ALL)) {
+
+    if (currentAdmin.permissions.includes(Permission.ALL)) {
       return true;
     }
     return requiredPermissions.some((Permission) =>
-      currentAdmin.permissions?.includes(Permission),
+      currentAdmin.permissions.includes(Permission),
     );
   }
 }
