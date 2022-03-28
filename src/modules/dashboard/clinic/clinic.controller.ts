@@ -44,8 +44,16 @@ export class DashboardClinicController {
 
   @Get()
   @Permissions(Permission.GET_CLINICS)
-  async findClinics(@Query('name') name?: string) {
-    return await this.clinicService.find(name);
+  async findClinics(
+    @Query('limit') limit: string,
+    @Query('offset') offset: string,
+    @Query('name') name: string,
+  ) {
+    return await this.clinicService.getManyAndCount({
+      limit: parseInt(limit),
+      offset: parseInt(offset),
+      name: name,
+    });
   }
 
   @UseGuards(DashboardClinicGuard)

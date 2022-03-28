@@ -42,8 +42,16 @@ export class DashboardAdminController {
 
   @Permissions(Permission.GET_ADMINS)
   @Get()
-  async findAdmins(@Query('email') email: string) {
-    return await this.adminService.find(email);
+  async findAdmins(
+    @Query('limit') limit: string,
+    @Query('offset') offset: string,
+    @Query('email') email: string,
+  ) {
+    return await this.adminService.getManyAndCount({
+      limit: parseInt(limit),
+      offset: parseInt(offset),
+      email: email,
+    });
   }
 
   @Permissions(Permission.DELETE_ADMIN)

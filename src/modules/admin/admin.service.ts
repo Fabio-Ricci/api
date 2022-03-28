@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -52,8 +53,30 @@ export class AdminService {
     });
   }
 
-  async find(email: string): Promise<Admin[]> {
-    return await this.repo.find({ email: email });
+  async getManyAndCount(options: {
+    limit?: number;
+    offset?: number;
+    email?: string;
+  }): Promise<[Admin[], number]> {
+    let query = this.repo
+      .createQueryBuilder('admin')
+      .leftJoinAndSelect('admin.clinic', 'clinic')
+      .orderBy('admin.created_at', 'DESC')
+      .where('1=1');
+
+    if (options.email) {
+      query = query.andWhere('admin.email = :email', { email: options.email });
+    }
+
+    if (options.limit) {
+      query = query.limit(options.limit);
+    }
+
+    if (options.offset) {
+      query = query.offset(options.offset);
+    }
+
+    return query.getManyAndCount();
   }
 
   async update(id: number, attrs: Partial<Admin>) {
@@ -64,7 +87,7 @@ export class AdminService {
     if (attrs.email) {
       admin = await this.findOneByEmail(attrs.email);
       if (admin) {
-        throw new NotFoundException();
+        throw new ConflictException();
       }
     }
     Object.assign(admin, attrs);

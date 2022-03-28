@@ -1,20 +1,19 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Clinic } from './clinic.entity';
+
+import { Vaccine } from './vaccine.entity';
 
 @Injectable()
-export class ClinicService {
-  constructor(@InjectRepository(Clinic) private repo: Repository<Clinic>) {}
+export class VaccineService {
+  constructor(@InjectRepository(Vaccine) private repo: Repository<Vaccine>) {}
 
   async create(name: string) {
-    // Create a new clinic and save it
-    const clinic = this.repo.create({
+    const user = this.repo.create({
       name: name,
     });
 
-    // return the clinic
-    return await this.repo.save(clinic);
+    return await this.repo.save(user);
   }
 
   async findOne(id: number) {
@@ -25,9 +24,9 @@ export class ClinicService {
     limit?: number;
     offset?: number;
     name?: string;
-  }): Promise<[Clinic[], number]> {
+  }): Promise<[Vaccine[], number]> {
     let query = this.repo
-      .createQueryBuilder('clinic')
+      .createQueryBuilder('vaccine')
       .orderBy('created_at', 'DESC')
       .where('1=1');
 
@@ -46,20 +45,20 @@ export class ClinicService {
     return query.getManyAndCount();
   }
 
-  async update(id: number, attrs: Partial<Clinic>) {
-    const clinic = await this.findOne(id);
-    if (!clinic) {
+  async update(id: number, attrs: Partial<Vaccine>) {
+    const vaccine = await this.findOne(id);
+    if (!vaccine) {
       throw new NotFoundException();
     }
-    Object.assign(clinic, attrs);
-    return await this.repo.save(clinic);
+    Object.assign(vaccine, attrs);
+    return await this.repo.save(vaccine);
   }
 
   async delete(id: number) {
-    const clinic = await this.findOne(id);
-    if (!clinic) {
+    const vaccine = await this.findOne(id);
+    if (!vaccine) {
       throw new NotFoundException();
     }
-    return await this.repo.remove(clinic);
+    return await this.repo.remove(vaccine);
   }
 }

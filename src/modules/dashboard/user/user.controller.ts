@@ -4,7 +4,6 @@ import {
   NotFoundException,
   Param,
   Query,
-  UseGuards,
 } from '@nestjs/common';
 
 import { Serialize } from 'src/interceptors/serialize.interceptor';
@@ -31,9 +30,16 @@ export class DashboardUserController {
   @Permissions(Permission.GET_USERS)
   @Get()
   async findUsers(
+    @Query('limit') limit: string,
+    @Query('offset') offset: string,
     @Query('name') name?: string,
     @Query('email') email?: string,
   ) {
-    return await this.userService.find(name, email);
+    return await this.userService.getManyAndCount({
+      limit: parseInt(limit),
+      offset: parseInt(offset),
+      name: name,
+      email: email,
+    });
   }
 }

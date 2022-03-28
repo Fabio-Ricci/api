@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -52,8 +53,34 @@ export class UserService {
     });
   }
 
-  async find(name: string, email: string): Promise<User[]> {
-    return await this.repo.find({ email: email });
+  async getManyAndCount(options: {
+    limit?: number;
+    offset?: number;
+    name?: string;
+    email?: string;
+  }): Promise<[User[], number]> {
+    let query = this.repo
+      .createQueryBuilder('user')
+      .orderBy('created_at', 'DESC')
+      .where('1=1');
+
+    if (options.name) {
+      query = query.andWhere('name = :emnameil', { name: options.name });
+    }
+
+    if (options.email) {
+      query = query.andWhere('email = :email', { email: options.email });
+    }
+
+    if (options.limit) {
+      query = query.limit(options.limit);
+    }
+
+    if (options.offset) {
+      query = query.offset(options.offset);
+    }
+
+    return query.getManyAndCount();
   }
 
   async update(id: number, attrs: Partial<User>) {
@@ -64,7 +91,7 @@ export class UserService {
     if (attrs.email) {
       user = await this.findOneByEmail(attrs.email);
       if (user) {
-        throw new NotFoundException();
+        throw new ConflictException();
       }
     }
     Object.assign(user, attrs);
