@@ -11,6 +11,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Clinic } from '../clinic/clinic.entity';
+import { Permission } from './permission.enum';
 
 @Entity()
 export class Admin {
@@ -35,6 +36,9 @@ export class Admin {
   })
   @JoinColumn({ name: 'clinic_id' })
   clinic: Clinic | null;
+
+  @Column('simple-array')
+  permissions: Permission[];
 
   @AfterInsert()
   logInsert() {

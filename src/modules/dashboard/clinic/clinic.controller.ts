@@ -12,25 +12,27 @@ import {
 } from '@nestjs/common';
 
 import { Serialize } from 'src/interceptors/serialize.interceptor';
-import { DashboardJwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { ClinicService } from '../../clinic/clinic.service';
 import { ClinicDto } from './dtos/clinic.dto';
 import { CreateClinicRequestDto } from './dtos/create-clinic.dto';
 import { UpdateClinicRequestDto } from './dtos/update-clinic.dto';
 import { DashboardClinicGuard } from './guards/dashboard-clinic.guard';
+import { Permissions } from '../auth/decorators/permissions.decorator';
+import { Permission } from 'src/modules/admin/permission.enum';
 
-@UseGuards(DashboardJwtAuthGuard)
 @Serialize(ClinicDto)
 @Controller('dashboard/clinic')
 export class DashboardClinicController {
   constructor(private clinicService: ClinicService) {}
 
+  @Permissions(Permission.CREATE_CLINIC)
   @Post()
   async createClinic(@Body() body: CreateClinicRequestDto) {
     return await this.clinicService.create(body.name);
   }
 
   @UseGuards(DashboardClinicGuard)
+  @Permissions(Permission.GET_CLINIC)
   @Get('/:id')
   async findClinic(@Param('id') id: string) {
     const clinic = await this.clinicService.findOne(parseInt(id));
@@ -41,17 +43,20 @@ export class DashboardClinicController {
   }
 
   @Get()
+  @Permissions(Permission.GET_CLINICS)
   async findAllClinics(@Query('name') name?: string) {
     return await this.clinicService.find(name);
   }
 
   @UseGuards(DashboardClinicGuard)
+  @Permissions(Permission.DELETE_CLINIC)
   @Delete('/:id')
   async deleteClinic(@Param('id') id: string) {
     return await this.clinicService.delete(parseInt(id));
   }
 
   @UseGuards(DashboardClinicGuard)
+  @Permissions(Permission.UPDATE_CLINIC)
   @Patch('/:id')
   async updateClinic(
     @Param('id') id: string,

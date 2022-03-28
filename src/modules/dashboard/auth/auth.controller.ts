@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { Admin } from 'src/modules/admin/admin.entity';
@@ -11,9 +11,7 @@ import {
 } from './dtos/login-admin.dto';
 
 import { Public } from 'src/decorators/public.decorator';
-import { DashboardJwtAuthGuard } from './guards/jwt-auth.guard';
 
-@UseGuards(DashboardJwtAuthGuard)
 @Controller('dashboard/auth')
 export class DashboardAuthController {
   constructor(private dashboardAuthService: DashboardAuthService) {}
