@@ -38,7 +38,7 @@ export class Admin {
   clinic: Clinic | null;
 
   @Column('simple-array')
-  permissions: Permission[];
+  permissions: Permission[]; // FIXME
 
   @AfterInsert()
   logInsert() {
