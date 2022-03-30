@@ -11,6 +11,7 @@ import {
 } from 'typeorm';
 
 import { Admin } from '../admin/admin.entity';
+import { Vaccine } from '../vaccine/vaccine.entity';
 
 @Entity()
 export class Clinic {
@@ -28,6 +29,9 @@ export class Clinic {
 
   @OneToMany(() => Admin, (admin) => admin.clinic)
   admins: Admin[];
+
+  @OneToMany(() => Vaccine, (vaccine) => vaccine.clinic)
+  vaccines: Vaccine[];
 
   @AfterInsert()
   logInsert() {

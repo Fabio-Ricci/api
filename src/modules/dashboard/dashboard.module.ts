@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
+import { PassportModule } from '@nestjs/passport';
 
 import { DashboardAdminModule } from './admin/admin.module';
 import { DashboardClinicModule } from './clinic/clinic.module';
 import { DashboardAuthModule } from './auth/auth.module';
 import { PermissionsGuard } from './auth/guards/permissions.guard';
 import { DashboardJwtAuthGuard } from './auth/guards/jwt-auth.guard';
-import { PassportModule } from '@nestjs/passport';
 import { DashboardUserModule } from './user/user.module';
+import { DashboardVaccineModule } from './vaccine/vaccine.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { DashboardUserModule } from './user/user.module';
     DashboardAdminModule,
     DashboardClinicModule,
     DashboardUserModule,
+    DashboardVaccineModule,
   ],
   providers: [
     {

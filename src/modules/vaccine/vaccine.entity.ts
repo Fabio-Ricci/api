@@ -7,7 +7,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   CreateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
+import { Clinic } from '../clinic/clinic.entity';
 
 @Entity()
 export class Vaccine {
@@ -22,6 +25,13 @@ export class Vaccine {
 
   @Column()
   name: string;
+
+  @ManyToOne(() => Clinic, (clinic) => clinic, {
+    nullable: true,
+    eager: true,
+  })
+  @JoinColumn({ name: 'clinic_id' })
+  clinic: Clinic;
 
   @AfterInsert()
   logInsert() {
