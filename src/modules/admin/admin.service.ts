@@ -7,12 +7,33 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomBytes, scryptSync } from 'crypto';
 import { Repository } from 'typeorm';
+import { ClinicService } from '../clinic/clinic.service';
 
 import { Admin } from './admin.entity';
 
+export interface UpdateAdminAttributes
+  extends Partial<
+    Omit<
+      Admin,
+      | 'id'
+      | 'createdAt'
+      | 'updatedAt'
+      | 'clinic'
+      | 'hashPassword'
+      | 'logInsert'
+      | 'logRemove'
+      | 'logUpdate'
+    >
+  > {
+  clinicId: number;
+}
+
 @Injectable()
 export class AdminService {
-  constructor(@InjectRepository(Admin) private repo: Repository<Admin>) {}
+  constructor(
+    @InjectRepository(Admin) private repo: Repository<Admin>,
+    private clinicService: ClinicService,
+  ) {}
 
   async create(email: string, password: string) {
     // See if email is in use
@@ -79,17 +100,27 @@ export class AdminService {
     return query.getManyAndCount();
   }
 
-  async update(id: number, attrs: Partial<Admin>) {
+  async update(id: number, attrs: UpdateAdminAttributes) {
     let admin = await this.findOne(id);
     if (!admin) {
       throw new NotFoundException();
     }
     if (attrs.email) {
       admin = await this.findOneByEmail(attrs.email);
-      if (admin) {
+      if (admin && id !== admin.id) {
         throw new ConflictException();
       }
     }
+    if (attrs.clinicId) {
+      const clinic = await this.clinicService.findOne(attrs.clinicId);
+      if (!clinic) {
+        throw new BadRequestException();
+      }
+      Object.assign(admin, { clinic: clinic });
+    } else if (attrs.clinicId === null) {
+      Object.assign(admin, { clinic: null });
+    }
+
     Object.assign(admin, attrs);
     return await this.repo.save(admin);
   }

@@ -25,6 +25,7 @@ import { DashboardVaccineGuard } from './guards/dashboard-vaccine.guard';
 export class DashboardVaccineController {
   constructor(private vaccineService: VaccineService) {}
 
+  @UseGuards(DashboardVaccineGuard)
   @Permissions(Permission.CREATE_VACCINE)
   @Post()
   async createVaccine(@Body() body: CreateClinicRequestDto) {

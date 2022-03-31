@@ -90,7 +90,7 @@ export class UserService {
     }
     if (attrs.email) {
       user = await this.findOneByEmail(attrs.email);
-      if (user) {
+      if (user && user.id !== id) {
         throw new ConflictException();
       }
     }

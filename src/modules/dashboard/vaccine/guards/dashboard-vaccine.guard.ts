@@ -11,10 +11,12 @@ export class DashboardVaccineGuard implements CanActivate {
       .switchToHttp()
       .getRequest<Request>();
 
-    // FIXME add condition to check for super admin
+    if (!currentAdmin.clinic) {
+      return false;
+    }
 
     const vaccine = await this.vaccineService.findOne(parseInt(params.id));
 
-    return currentAdmin.clinic?.id === vaccine.clinic.id;
+    return currentAdmin.clinic.id === vaccine.clinic.id;
   }
 }
