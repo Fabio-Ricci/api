@@ -10,6 +10,19 @@ import { Repository } from 'typeorm';
 
 import { User } from './user.entity';
 
+export type UpdateUserAttributes = Partial<
+  Omit<
+    User,
+    | 'id'
+    | 'createdAt'
+    | 'updatedAt'
+    | 'hashPassword'
+    | 'logInsert'
+    | 'logRemove'
+    | 'logUpdate'
+  >
+>;
+
 @Injectable()
 export class UserService {
   constructor(@InjectRepository(User) private repo: Repository<User>) {}
@@ -83,7 +96,7 @@ export class UserService {
     return query.getManyAndCount();
   }
 
-  async update(id: number, attrs: Partial<User>) {
+  async update(id: number, attrs: UpdateUserAttributes) {
     let user = await this.findOne(id);
     if (!user) {
       throw new NotFoundException();

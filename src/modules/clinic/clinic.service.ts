@@ -1,7 +1,22 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 import { Clinic } from './clinic.entity';
+
+export type UpdateClinicAttributes = Partial<
+  Omit<
+    Clinic,
+    | 'id'
+    | 'createdAt'
+    | 'updatedAt'
+    | 'admins'
+    | 'vaccines'
+    | 'logInsert'
+    | 'logRemove'
+    | 'logUpdate'
+  >
+>;
 
 @Injectable()
 export class ClinicService {
@@ -46,7 +61,7 @@ export class ClinicService {
     return query.getManyAndCount();
   }
 
-  async update(id: number, attrs: Partial<Clinic>) {
+  async update(id: number, attrs: UpdateClinicAttributes) {
     const clinic = await this.findOne(id);
     if (!clinic) {
       throw new NotFoundException();

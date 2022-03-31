@@ -4,6 +4,19 @@ import { Repository } from 'typeorm';
 
 import { Vaccine } from './vaccine.entity';
 
+export type UpdateVaccineAttributes = Partial<
+  Omit<
+    Vaccine,
+    | 'id'
+    | 'createdAt'
+    | 'updatedAt'
+    | 'clinic'
+    | 'logInsert'
+    | 'logRemove'
+    | 'logUpdate'
+  >
+>;
+
 @Injectable()
 export class VaccineService {
   constructor(@InjectRepository(Vaccine) private repo: Repository<Vaccine>) {}
@@ -45,7 +58,7 @@ export class VaccineService {
     return query.getManyAndCount();
   }
 
-  async update(id: number, attrs: Partial<Vaccine>) {
+  async update(id: number, attrs: UpdateVaccineAttributes) {
     const vaccine = await this.findOne(id);
     if (!vaccine) {
       throw new NotFoundException();
