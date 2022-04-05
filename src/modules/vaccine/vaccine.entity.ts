@@ -11,6 +11,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Clinic } from '../clinic/clinic.entity';
+import { VaccineType } from '../vaccine-type/vaccine-type.entity';
 
 @Entity()
 export class Vaccine {
@@ -32,6 +33,13 @@ export class Vaccine {
   })
   @JoinColumn({ name: 'clinic_id' })
   clinic: Clinic;
+
+  @ManyToOne(() => VaccineType, (vaccineType) => vaccineType, {
+    nullable: true,
+    eager: true,
+  })
+  @JoinColumn({ name: 'vaccine_type_id' })
+  vaccineType: VaccineType;
 
   @AfterInsert()
   logInsert() {

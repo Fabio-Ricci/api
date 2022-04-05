@@ -5,5 +5,8 @@ export class ClinicDto {
   id: number;
 
   @Expose()
+  createdAt: Date;
+
+  @Expose()
   name: string;
 }

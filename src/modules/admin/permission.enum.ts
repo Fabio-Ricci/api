@@ -24,4 +24,10 @@ export enum Permission {
   DELETE_VACCINE = 'delete_vaccine',
   GET_VACCINE = 'get_vaccine',
   GET_VACCINES = 'get_vaccines',
+  // VACCINE TYPE
+  CREATE_VACCINE_TYPE = 'create_vaccine_type',
+  UPDATE_VACCINE_TYPE = 'update_vaccine_type',
+  DELETE_VACCINE_TYPE = 'delete_vaccine_type',
+  GET_VACCINE_TYPE = 'get_vaccine_type',
+  GET_VACCINE_TYPES = 'get_vaccine_types',
 }

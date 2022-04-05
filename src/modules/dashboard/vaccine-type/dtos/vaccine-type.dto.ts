@@ -1,6 +1,6 @@
 import { Expose } from 'class-transformer';
 
-export class UserDto {
+export class VaccineTypeDto {
   @Expose()
   id: number;
 
@@ -9,7 +9,4 @@ export class UserDto {
 
   @Expose()
   name: string;
-
-  @Expose()
-  email: string;
 }

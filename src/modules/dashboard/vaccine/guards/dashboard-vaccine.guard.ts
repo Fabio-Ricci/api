@@ -1,5 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Request } from 'express';
+
 import { VaccineService } from 'src/modules/vaccine/vaccine.service';
 
 @Injectable()
@@ -11,7 +12,9 @@ export class DashboardVaccineGuard implements CanActivate {
       .switchToHttp()
       .getRequest<Request>();
 
-    if (!currentAdmin.clinic) {
+    // add check for permissions all
+
+    if (!currentAdmin.clinic || !params.id) {
       return false;
     }
 

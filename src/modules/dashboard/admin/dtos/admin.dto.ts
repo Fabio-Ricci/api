@@ -7,6 +7,9 @@ export class AdminDto {
   id: number;
 
   @Expose()
+  createdAt: Date;
+
+  @Expose()
   email: string;
 
   @Transform(({ obj }: { obj: Admin }) => (obj.clinic ? obj.clinic.id : null))
