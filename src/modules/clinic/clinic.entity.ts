@@ -11,6 +11,7 @@ import {
 } from 'typeorm';
 
 import { Admin } from '../admin/admin.entity';
+import { Calendar } from '../calendar/calendar.entity';
 import { Vaccine } from '../vaccine/vaccine.entity';
 
 @Entity()
@@ -32,6 +33,9 @@ export class Clinic {
 
   @OneToMany(() => Vaccine, (vaccine) => vaccine.clinic)
   vaccines: Vaccine[];
+
+  @OneToMany(() => Calendar, (calendar) => calendar.clinic)
+  calendars: Calendar[];
 
   @AfterInsert()
   logInsert() {

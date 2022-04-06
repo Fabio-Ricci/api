@@ -2,6 +2,8 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Request } from 'express';
 import { Observable } from 'rxjs';
 
+import { Permission } from 'src/modules/admin/permission.enum';
+
 @Injectable()
 export class DashboardClinicGuard implements CanActivate {
   canActivate(
@@ -11,7 +13,9 @@ export class DashboardClinicGuard implements CanActivate {
       .switchToHttp()
       .getRequest<Request>();
 
-    // FIXME add condition to check for super admin
+    if (currentAdmin.permissions.includes(Permission.ALL)) {
+      return true;
+    }
 
     return currentAdmin.clinic?.id === parseInt(params.id);
   }

@@ -1,20 +1,20 @@
 import {
-  AfterInsert,
-  AfterRemove,
-  AfterUpdate,
-  Entity,
-  Column,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  Column,
   CreateDateColumn,
+  UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  AfterRemove,
+  AfterUpdate,
+  AfterInsert,
+  Entity,
 } from 'typeorm';
+
 import { Clinic } from '../clinic/clinic.entity';
-import { VaccineType } from '../vaccine-type/vaccine-type.entity';
 
 @Entity()
-export class Vaccine {
+export class Calendar {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -24,9 +24,6 @@ export class Vaccine {
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
-  @Column()
-  name: string;
-
   @ManyToOne(() => Clinic, (clinic) => clinic, {
     nullable: false,
     eager: true,
@@ -34,25 +31,24 @@ export class Vaccine {
   @JoinColumn({ name: 'clinic_id' })
   clinic: Clinic;
 
-  @ManyToOne(() => VaccineType, (vaccineType) => vaccineType, {
-    nullable: true,
-    eager: true,
-  })
-  @JoinColumn({ name: 'vaccine_type_id' })
-  vaccineType: VaccineType;
+  @Column()
+  name: string;
+
+  @Column({ name: 'calendar_type' })
+  calendarType: string;
 
   @AfterInsert()
   logInsert() {
-    console.log('Inserted Vaccine with id', this.id);
+    console.log('Inserted Calendar with id', this.id);
   }
 
   @AfterUpdate()
   logUpdate() {
-    console.log('Updated Vaccine with id', this.id);
+    console.log('Updated Calendar with id', this.id);
   }
 
   @AfterRemove()
   logRemove() {
-    console.log('Removed Vaccine with id', this.id);
+    console.log('Removed Calendar with id', this.id);
   }
 }

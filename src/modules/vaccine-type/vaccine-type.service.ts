@@ -42,7 +42,7 @@ export class VaccineTypeService {
   }): Promise<[VaccineType[], number]> {
     let query = this.repo
       .createQueryBuilder('vaccineType')
-      .orderBy('created_at', 'DESC')
+      .orderBy('vaccineType.created_at', 'DESC')
       .where('1=1');
 
     if (options.name) {

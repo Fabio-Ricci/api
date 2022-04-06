@@ -70,6 +70,7 @@ export class VaccineService {
     limit?: number;
     offset?: number;
     name?: string;
+    clinicId?: number;
   }): Promise<[Vaccine[], number]> {
     let query = this.repo
       .createQueryBuilder('vaccine')
@@ -80,6 +81,10 @@ export class VaccineService {
 
     if (options.name) {
       query = query.andWhere('vaccine.name = :name', { name: options.name });
+    }
+
+    if (options.clinicId) {
+      query = query.andWhere('clinic.id = :id', { id: options.clinicId });
     }
 
     if (options.limit) {

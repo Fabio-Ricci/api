@@ -18,6 +18,7 @@ import { CreateAdminRequestDto } from './dtos/create-admin.dto';
 import { UpdateAdminRequestDto } from './dtos/update-admin.dto';
 import { Permissions } from '../auth/decorators/permissions.decorator';
 import { Permission } from 'src/modules/admin/permission.enum';
+import { Public } from 'src/decorators/public.decorator';
 
 @Serialize(AdminDto)
 @Controller('dashboard/admin')
@@ -25,6 +26,7 @@ export class DashboardAdminController {
   constructor(private adminService: AdminService) {}
 
   @Post()
+  @Public()
   @Permissions(Permission.CREATE_ADMIN)
   async createAdmin(@Body() body: CreateAdminRequestDto) {
     return await this.adminService.create(body.email, body.password);

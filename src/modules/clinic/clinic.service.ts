@@ -12,6 +12,7 @@ export type UpdateClinicAttributes = Partial<
     | 'updatedAt'
     | 'admins'
     | 'vaccines'
+    | 'calendars'
     | 'logInsert'
     | 'logRemove'
     | 'logUpdate'

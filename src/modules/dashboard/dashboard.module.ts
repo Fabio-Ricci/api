@@ -10,6 +10,7 @@ import { DashboardJwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { DashboardUserModule } from './user/user.module';
 import { DashboardVaccineModule } from './vaccine/vaccine.module';
 import { DashboardVaccineTypeModule } from './vaccine-type/vaccine-type.module';
+import { DashboardCalendarModule } from './calendar/calendar.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { DashboardVaccineTypeModule } from './vaccine-type/vaccine-type.module';
     DashboardUserModule,
     DashboardVaccineModule,
     DashboardVaccineTypeModule,
+    DashboardCalendarModule,
   ],
   providers: [
     {

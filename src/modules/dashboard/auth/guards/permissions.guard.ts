@@ -20,6 +20,10 @@ export class PermissionsGuard implements CanActivate {
 
     const { currentAdmin } = context.switchToHttp().getRequest<Request>();
 
+    if (!currentAdmin) {
+      return false;
+    }
+
     if (currentAdmin.permissions.includes(Permission.ALL)) {
       return true;
     }

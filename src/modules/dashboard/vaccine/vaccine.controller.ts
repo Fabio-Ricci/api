@@ -19,6 +19,7 @@ import { VaccineService } from 'src/modules/vaccine/vaccine.service';
 import { DashboardVaccineGuard } from './guards/dashboard-vaccine.guard';
 import { CreateVaccineRequestDto } from './dtos/create-vaccine.dto';
 import { UpdateVaccineRequestDto } from './dtos/update-vaccine.dto';
+import { DashboardVaccinesGuard } from './guards/dashboard-vaccines.guard';
 
 @Serialize(VaccineDto)
 @Controller('dashboard/vaccine')
@@ -42,17 +43,20 @@ export class DashboardVaccineController {
     return vaccine;
   }
 
+  @UseGuards(DashboardVaccinesGuard)
   @Permissions(Permission.GET_VACCINES)
   @Get()
   async findVaccines(
-    @Query('limit') limit: string,
-    @Query('offset') offset: string,
-    @Query('name') name: string,
+    @Query('limit') limit?: string,
+    @Query('offset') offset?: string,
+    @Query('name') name?: string,
+    @Query('clinicId') clinicId?: number,
   ) {
     return await this.vaccineService.getManyAndCount({
       limit: parseInt(limit),
       offset: parseInt(offset),
       name: name,
+      clinicId: clinicId,
     });
   }
 

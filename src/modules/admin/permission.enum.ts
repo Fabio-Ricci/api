@@ -30,4 +30,10 @@ export enum Permission {
   DELETE_VACCINE_TYPE = 'delete_vaccine_type',
   GET_VACCINE_TYPE = 'get_vaccine_type',
   GET_VACCINE_TYPES = 'get_vaccine_types',
+  // CALENDAR
+  CREATE_CALENDAR = 'create_calendar',
+  UPDATE_CALENDAR = 'update_calendar',
+  DELETE_CALENDAR = 'delete_calendar',
+  GET_CALENDAR = 'get_calendar',
+  GET_CALENDARS = 'get_calendars',
 }

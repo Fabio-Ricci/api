@@ -2,11 +2,11 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Request } from 'express';
 
 import { Permission } from 'src/modules/admin/permission.enum';
-import { VaccineService } from 'src/modules/vaccine/vaccine.service';
+import { CalendarService } from 'src/modules/calendar/calendar.service';
 
 @Injectable()
-export class DashboardVaccineGuard implements CanActivate {
-  constructor(private vaccineService: VaccineService) {}
+export class DashboardCalendarGuard implements CanActivate {
+  constructor(private calendarService: CalendarService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const { currentAdmin, params } = context
@@ -21,8 +21,8 @@ export class DashboardVaccineGuard implements CanActivate {
       return false;
     }
 
-    const vaccine = await this.vaccineService.findOne(parseInt(params.id));
+    const calendar = await this.calendarService.findOne(parseInt(params.id));
 
-    return currentAdmin.clinic?.id === vaccine.clinic.id;
+    return currentAdmin.clinic?.id === calendar.clinic.id;
   }
 }
