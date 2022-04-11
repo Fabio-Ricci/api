@@ -24,7 +24,7 @@ export class PermissionsGuard implements CanActivate {
       return false;
     }
 
-    if (currentAdmin.permissions.includes(Permission.ALL)) {
+    if (currentAdmin.permissions.includes(Permission.SUPER_ADMIN)) {
       return true;
     }
     return requiredPermissions.some((Permission) =>

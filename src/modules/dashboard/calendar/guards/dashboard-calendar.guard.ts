@@ -13,7 +13,7 @@ export class DashboardCalendarGuard implements CanActivate {
       .switchToHttp()
       .getRequest<Request>();
 
-    if (currentAdmin.permissions.includes(Permission.ALL)) {
+    if (currentAdmin.permissions.includes(Permission.SUPER_ADMIN)) {
       return true;
     }
 

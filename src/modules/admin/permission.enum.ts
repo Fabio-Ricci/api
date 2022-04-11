@@ -1,5 +1,5 @@
 export enum Permission {
-  ALL = 'all',
+  SUPER_ADMIN = 'super_admin',
   // ADMIN
   CREATE_ADMIN = 'create_admin',
   UPDATE_ADMIN = 'update_admin',

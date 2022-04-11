@@ -13,7 +13,7 @@ export class DashboardVaccineGuard implements CanActivate {
       .switchToHttp()
       .getRequest<Request>();
 
-    if (currentAdmin.permissions.includes(Permission.ALL)) {
+    if (currentAdmin.permissions.includes(Permission.SUPER_ADMIN)) {
       return true;
     }
 

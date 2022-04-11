@@ -1,4 +1,4 @@
-import { IsArray, IsEmail, IsNumber, IsOptional } from 'class-validator';
+import { IsEmail, IsEnum, IsNumber, IsOptional } from 'class-validator';
 import { Permission } from 'src/modules/admin/permission.enum';
 
 export class UpdateAdminRequestDto {
@@ -10,7 +10,7 @@ export class UpdateAdminRequestDto {
   @IsOptional()
   clinicId: number | null;
 
-  @IsArray()
+  @IsEnum(Permission, { each: true })
   @IsOptional()
   permissions: Permission[];
 }

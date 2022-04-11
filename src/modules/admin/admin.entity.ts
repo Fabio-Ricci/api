@@ -10,6 +10,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
+
 import { Clinic } from '../clinic/clinic.entity';
 import { Permission } from './permission.enum';
 
@@ -41,7 +42,7 @@ export class Admin {
     type: 'enum',
     enum: Permission,
     array: true,
-    default: [Permission.ALL], // FIXME: column being dropped and old values are lost on synchornize: true
+    default: [],
   })
   permissions: Permission[];
 
