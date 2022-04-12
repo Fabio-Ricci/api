@@ -1,9 +1,10 @@
-import { IsString } from 'class-validator';
+import { IsEnum, IsString } from 'class-validator';
+import { CalendarType } from 'src/modules/calendar/calendar-type.enum';
 
 export class UpdateCalendarRequestDto {
   @IsString()
   name: string;
 
-  @IsString()
-  calendarType: string;
+  @IsEnum(CalendarType)
+  calendarType: CalendarType;
 }

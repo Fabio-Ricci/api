@@ -5,8 +5,9 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ClinicService } from '../clinic/clinic.service';
 
+import { ClinicService } from '../clinic/clinic.service';
+import { CalendarType } from './calendar-type.enum';
 import { Calendar } from './calendar.entity';
 
 export type UpdateCalendarAttributes = Partial<
@@ -31,7 +32,7 @@ export class CalendarService {
 
   async create(payload: {
     name: string;
-    calendarType: string;
+    calendarType: CalendarType;
     clinicId: number;
   }) {
     const clinic = await this.clinicService.findOne(payload.clinicId);

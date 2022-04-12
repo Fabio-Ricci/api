@@ -23,11 +23,21 @@ export type UpdateClinicAttributes = Partial<
 export class ClinicService {
   constructor(@InjectRepository(Clinic) private repo: Repository<Clinic>) {}
 
-  async create(name: string) {
+  async create(payload: {
+    name: string;
+    email: string;
+    cnpj: string;
+    phoneNumber: string;
+    imageUrl: string;
+    cep: string;
+    street: string;
+    district: string;
+    complement: string;
+    number: string;
+    shipping: number;
+  }) {
     // Create a new clinic and save it
-    const clinic = this.repo.create({
-      name: name,
-    });
+    const clinic = this.repo.create(payload);
 
     // return the clinic
     return await this.repo.save(clinic);

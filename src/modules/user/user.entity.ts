@@ -29,6 +29,33 @@ export class User {
   @Column({ name: 'hash_password' })
   hashPassword: string;
 
+  @Column({ name: 'phone_number' })
+  phoneNumber: string;
+
+  @Column()
+  street: string;
+
+  @Column()
+  number: string;
+
+  @Column()
+  complement: string;
+
+  @Column()
+  district: string;
+
+  @Column()
+  cep: string;
+
+  @Column({ default: false })
+  confirmed: boolean;
+
+  @Column({ name: 'push_token' })
+  pushToken: string;
+
+  @Column({ name: 'reset_password_token', nullable: true })
+  resetPasswordToken: string;
+
   @AfterInsert()
   logInsert() {
     console.log('Inserted User with id', this.id);

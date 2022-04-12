@@ -14,6 +14,15 @@ export class VaccineDto {
   name: string;
 
   @Expose()
+  price: number;
+
+  @Expose()
+  quantity: number;
+
+  @Expose()
+  description: string;
+
+  @Expose()
   @Transform(({ obj }: { obj: Vaccine }) => obj.clinic.id)
   clinicId: number;
 

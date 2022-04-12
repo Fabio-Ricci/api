@@ -25,6 +25,27 @@ export class VaccineType {
   @Column()
   name: string;
 
+  @Column()
+  manufacturer: string;
+
+  @Column()
+  product: string;
+
+  @Column({ name: 'min_age_month', nullable: true })
+  minAgeMonth: number | null;
+
+  @Column({ name: 'max_age_month', nullable: true })
+  maxAgeMonth: number | null;
+
+  @Column()
+  sipniId: number;
+
+  @Column()
+  description: string;
+
+  @Column({ name: 'sipni_prevenction' })
+  sipniPrevenction: string;
+
   @OneToMany(() => Vaccine, (vaccine) => vaccine.vaccineType)
   vaccines: Vaccine[];
 

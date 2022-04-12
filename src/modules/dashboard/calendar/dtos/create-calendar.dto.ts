@@ -1,4 +1,5 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsEnum, IsNumber, IsString } from 'class-validator';
+import { CalendarType } from 'src/modules/calendar/calendar-type.enum';
 
 export class CreateCalendarRequestDto {
   @IsString()
@@ -7,6 +8,6 @@ export class CreateCalendarRequestDto {
   @IsNumber()
   clinicId: number;
 
-  @IsString()
-  calendarType: string;
+  @IsEnum(CalendarType)
+  calendarType: CalendarType;
 }

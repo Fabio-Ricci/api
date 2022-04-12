@@ -9,4 +9,25 @@ export class VaccineTypeDto {
 
   @Expose()
   name: string;
+
+  @Expose()
+  manufacturer: string;
+
+  @Expose()
+  product: string;
+
+  @Expose()
+  minAgeMonth: number | null;
+
+  @Expose()
+  maxAgeMonth: number | null;
+
+  @Expose()
+  sipniId: number;
+
+  @Expose()
+  description: string;
+
+  @Expose()
+  sipniPrevenction: string;
 }

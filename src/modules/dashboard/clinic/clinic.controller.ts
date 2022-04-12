@@ -28,7 +28,7 @@ export class DashboardClinicController {
   @Permissions(Permission.CREATE_CLINIC)
   @Post()
   async createClinic(@Body() body: CreateClinicRequestDto) {
-    return await this.clinicService.create(body.name);
+    return await this.clinicService.create(body);
   }
 
   @UseGuards(DashboardClinicGuard)

@@ -28,6 +28,36 @@ export class Clinic {
   @Column()
   name: string;
 
+  @Column()
+  email: string;
+
+  @Column()
+  cnpj: string;
+
+  @Column()
+  phoneNumber: string;
+
+  @Column({ name: 'image_url' })
+  imageUrl: string;
+
+  @Column()
+  cep: string;
+
+  @Column()
+  street: string;
+
+  @Column()
+  district: string;
+
+  @Column()
+  complement: string;
+
+  @Column()
+  number: string;
+
+  @Column({ type: 'real' })
+  shipping: number;
+
   @OneToMany(() => Admin, (admin) => admin.clinic)
   admins: Admin[];
 

@@ -12,6 +12,7 @@ import {
 } from 'typeorm';
 
 import { Clinic } from '../clinic/clinic.entity';
+import { CalendarType } from './calendar-type.enum';
 
 @Entity()
 export class Calendar {
@@ -34,8 +35,13 @@ export class Calendar {
   @Column()
   name: string;
 
-  @Column({ name: 'calendar_type' })
-  calendarType: string;
+  @Column({
+    name: 'calendar_type',
+    type: 'enum',
+    enum: CalendarType,
+    default: CalendarType.CLINIC_CALENDAR,
+  })
+  calendarType: CalendarType;
 
   @AfterInsert()
   logInsert() {

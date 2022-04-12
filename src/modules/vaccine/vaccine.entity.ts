@@ -27,6 +27,15 @@ export class Vaccine {
   @Column()
   name: string;
 
+  @Column({ type: 'real' })
+  price: number;
+
+  @Column()
+  quantity: number;
+
+  @Column()
+  description: string;
+
   @ManyToOne(() => Clinic, (clinic) => clinic, {
     nullable: false,
     eager: true,

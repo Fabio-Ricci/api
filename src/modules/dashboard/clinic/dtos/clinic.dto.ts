@@ -9,4 +9,34 @@ export class ClinicDto {
 
   @Expose()
   name: string;
+
+  @Expose()
+  email: string;
+
+  @Expose()
+  cnpj: string;
+
+  @Expose()
+  phoneNumber: string;
+
+  @Expose()
+  imageUrl: string;
+
+  @Expose()
+  cep: string;
+
+  @Expose()
+  street: string;
+
+  @Expose()
+  district: string;
+
+  @Expose()
+  complement: string;
+
+  @Expose()
+  number: string;
+
+  @Expose()
+  shipping: number;
 }

@@ -31,6 +31,9 @@ export class Admin {
   @Column({ name: 'hash_password' })
   hashPassword: string;
 
+  @Column({ name: 'reset_password_token', nullable: true })
+  resetPasswordToken: string;
+
   @ManyToOne(() => Clinic, (clinic) => clinic, {
     nullable: true,
     eager: true,

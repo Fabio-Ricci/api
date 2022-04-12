@@ -7,5 +7,17 @@ export class UpdateVaccineRequestDto {
 
   @IsNumber()
   @IsOptional()
+  price: number;
+
+  @IsNumber()
+  @IsOptional()
+  quantity: number;
+
+  @IsString()
+  @IsOptional()
+  description: string;
+
+  @IsNumber()
+  @IsOptional()
   vaccineTypeId: number;
 }

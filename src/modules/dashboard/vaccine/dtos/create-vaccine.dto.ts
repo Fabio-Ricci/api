@@ -5,6 +5,15 @@ export class CreateVaccineRequestDto {
   name: string;
 
   @IsNumber()
+  price: number;
+
+  @IsNumber()
+  quantity: number;
+
+  @IsString()
+  description: string;
+
+  @IsNumber()
   clinicId: number;
 
   @IsNumber()

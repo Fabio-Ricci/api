@@ -12,4 +12,25 @@ export class UserDto {
 
   @Expose()
   email: string;
+
+  @Expose()
+  phoneNumber: string;
+
+  @Expose()
+  street: string;
+
+  @Expose()
+  number: string;
+
+  @Expose()
+  complement: string;
+
+  @Expose()
+  district: string;
+
+  @Expose()
+  cep: string;
+
+  @Expose()
+  confirmed: boolean;
 }
