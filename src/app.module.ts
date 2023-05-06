@@ -1,11 +1,14 @@
 import { Module, ValidationPipe } from '@nestjs/common';
-import { APP_PIPE } from '@nestjs/core';
+import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { DashboardModule } from './modules/dashboard/dashboard.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './modules/auth/auth.module';
+import { UserModule } from './modules/user/user.module';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { PermissionsGuard } from './guards/permissions.guard';
 
 @Module({
   imports: [
@@ -14,7 +17,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
     TypeOrmModule.forRoot(),
-    DashboardModule,
+    AuthModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [
@@ -23,6 +27,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       useValue: new ValidationPipe({
         whitelist: true,
       }),
+    },
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: PermissionsGuard,
     },
     AppService,
   ],

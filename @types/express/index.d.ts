@@ -1,12 +1,11 @@
-import { Admin } from 'src/modules/admin/admin.entity';
+import { User as CustomUser } from 'src/modules/user/user.entity';
 
 export {};
 
 declare global {
   namespace Express {
     interface Request {
-      currentAdmin?: Admin;
-      //   currentUser?: User;
+      currentUser?: CustomUser;
     }
   }
 }

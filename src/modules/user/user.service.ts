@@ -10,18 +10,22 @@ import { Repository } from 'typeorm';
 
 import { User } from './user.entity';
 
-export type UpdateUserAttributes = Partial<
-  Omit<
-    User,
-    | 'id'
-    | 'createdAt'
-    | 'updatedAt'
-    | 'hashPassword'
-    | 'logInsert'
-    | 'logRemove'
-    | 'logUpdate'
-  >
->;
+export interface UpdateUserAttributes
+  extends Partial<
+    Omit<
+      User,
+      | 'id'
+      | 'createdAt'
+      | 'updatedAt'
+      | 'clinic'
+      | 'hashPassword'
+      | 'logInsert'
+      | 'logRemove'
+      | 'logUpdate'
+    >
+  > {
+  clinicId: number;
+}
 
 @Injectable()
 export class UserService {
@@ -69,20 +73,16 @@ export class UserService {
   async getManyAndCount(options: {
     limit?: number;
     offset?: number;
-    name?: string;
     email?: string;
   }): Promise<[User[], number]> {
     let query = this.repo
       .createQueryBuilder('user')
-      .orderBy('created_at', 'DESC')
+      .leftJoinAndSelect('user.clinic', 'clinic')
+      .orderBy('user.created_at', 'DESC')
       .where('1=1');
 
-    if (options.name) {
-      query = query.andWhere('name = :emnameil', { name: options.name });
-    }
-
     if (options.email) {
-      query = query.andWhere('email = :email', { email: options.email });
+      query = query.andWhere('user.email = :email', { email: options.email });
     }
 
     if (options.limit) {
@@ -103,7 +103,7 @@ export class UserService {
     }
     if (attrs.email) {
       user = await this.findOneByEmail(attrs.email);
-      if (user && user.id !== id) {
+      if (user && id !== user.id) {
         throw new ConflictException();
       }
     }
