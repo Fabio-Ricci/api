@@ -1,11 +1,11 @@
-import { User as CustomUser } from 'src/modules/user/user.entity';
+// import { User as CustomUser } from 'src/modules/user/user.entity';
 
-export {};
+// export {};
 
-declare global {
-  namespace Express {
-    interface Request {
-      currentUser?: CustomUser;
-    }
-  }
-}
+// declare global {
+//   namespace Express {
+//     interface Request {
+//       currentUser?: CustomUser;
+//     }
+//   }
+// }
